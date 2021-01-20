@@ -91,6 +91,7 @@ def login():
     if request.method == 'POST' and 'mail' in request.form and 'pw' in request.form:
         mail = request.form['mail']
         pw = request.form['pw']
+        pw = sha256(pw.encode()).hexdigest()
 
         cur = mysql_db.cursor()
         cur.execute("SELECT * FROM User WHERE mail = %s AND password = %s", (mail, pw,))
